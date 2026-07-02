@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}PDF Chatbot{% endblock %}
+
+{% block header_title %}Chatbot{% endblock %}
+
+{% block content %}
+
+<div class="max-w-5xl mx-auto h-[85vh] flex flex-col">
+
+    <!-- Heading -->
+    <h1 class="text-3xl font-bold text-center my-6">
+        {{name}} Chatbot
+    </h1>
+
+    <!-- Chat Area -->
+    <div class="flex-1 overflow-y-auto bg-gray-100 rounded-xl p-6 space-y-4 shadow">
+
+        {% for c in chat %}
+
+            {% if loop.index0 % 2 == 0 %}
+
+                <!-- User -->
+                <div class="flex justify-end">
+                    <div class="bg-blue-600 text-white px-4 py-3 rounded-2xl rounded-br-sm max-w-xl shadow">
+                        {{ c }}
+                    </div>
+                </div>
+
+            {% else %}
+
+                <!-- AI -->
+                <div class="flex justify-start">
+                    <div class="bg-white text-gray-800 px-4 py-3 rounded-2xl rounded-bl-sm max-w-xl shadow border">
+                        {{ c }}
+                    </div>
+                </div>
+
+            {% endif %}
+
+        {% endfor %}
+
+    </div>
+
+    <!-- Input -->
+    <form
+        action="/chat_page/{{ collection_id }}"
+        method="post"
+        class="mt-5 flex gap-3"
+    >
+
+        <input
+            type="text"
+            name="query"
+            placeholder="Ask something about your PDF..."
+            class="flex-1 border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+        >
+
+        <button
+            type="submit"
+            class="bg-blue-600 hover:bg-blue-700 text-white px-6 rounded-xl transition"
+        >
+            Ask
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Upload PDF - DocuChat{% endblock %}
+
+{% block header_title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto py-12 px-4">
+    
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-extrabold text-gray-900 mb-4">
+            Upload a document to start
+        </h1>
+        <p class="text-lg text-gray-600">
+            Select a PDF file from your device to begin the analysis.
+        </p>
+    </div>
+
+    <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 max-w-lg mx-auto">
+        <form action="/upload" method="POST" enctype="multipart/form-data" class="space-y-6">
+            
+            <div class="border-2 border-dashed border-gray-300 rounded-xl p-10 text-center hover:border-brand-600 transition-colors duration-200">
+                <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                </svg>
+                
+                <input type="file" name="file" id="file-upload" class="hidden" accept=".pdf" required />
+                
+                <label for="file-upload" class="cursor-pointer">
+                    <span class="mt-2 block text-sm font-medium text-brand-600 hover:text-brand-700">Browse files</span>
+                    <span id="file-name" class="mt-1 block text-xs text-gray-400">PDF up to 10MB</span>
+                </label>
+            </div>
+
+            <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors">
+                Upload & Process
+            </button>
+        </form>
+    </div>
+</div>
+
+<script>
+    const fileInput = document.getElementById('file-upload');
+    const fileName = document.getElementById('file-name');
+    
+    fileInput.addEventListener('change', () => {
+        fileName.textContent = fileInput.files[0] ? fileInput.files[0].name : "PDF up to 10MB";
+    });
+</script>
+{% endblock %}
